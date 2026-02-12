@@ -36,6 +36,12 @@ jobs:
           docker push ${{ vars.ECR_REPO_APP }}:$GITHUB_SHA
           docker build -t ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA proxy/
           docker push ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA
+      - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ap-south-1
       - name: Debug AWS Identity
         run: aws sts get-caller-identity
       - name: Terraform Apply
