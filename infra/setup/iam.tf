@@ -64,11 +64,14 @@ data "aws_iam_policy_document" "ecr" {
   statement {
     effect = "Allow"
     actions = [
+      "ecr:BatchCheckLayerAvailability",
       "ecr:CompleteLayerUpload",
       "ecr:UploadLayerPart",
       "ecr:InitiateLayerUpload",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:PutImage"
+      "ecr:PutImage",
+      "ecr:BatchGetImage",
+      "ecr:DescribeRepositories",
+      "ecr:DescribeImages"
     ]
     resources = [
       aws_ecr_repository.app.arn,
